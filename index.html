@@ -10,12 +10,12 @@
       text-align: center;
       margin: 0;
       padding: 0;
-      background-color: #000; /* Black background */
-      color: #fff; /* White text color */
+      background-color: #f2f2f2; /* Light gray background */
+      color: #333; /* Dark text color */
     }
     .container {
       padding: 20px;
-      background-color: #333; /* Dark gray background */
+      background-color: #fff; /* White background */
       border-radius: 10px; /* Rounded corners */
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
       max-width: 400px; /* Limit width for better readability */
@@ -31,7 +31,8 @@
       text-align: left;
     }
     #countdown {
-      color: #999; /* Light gray text color */
+      font-size: 24px;
+      color: #666; /* Medium gray text color */
     }
   </style>
 </head>
@@ -41,10 +42,9 @@
     <p id="numeric-date"></p>
     <p id="written-date"></p>
     <p id="day-of-week"></p>
-    <p id="countdown">Time until next day: <span id="hour">00</span> hours <span id="minute">00</span> minutes</p>
-    <p>Time is an essential aspect of our lives. It helps us organize our day, plan events, and keep track of important deadlines. Understanding the passage of time allows us to appreciate the present moment while preparing for the future.</p>
-    <p>By staying aware of today's date and the day of the week, we can better manage our schedules and make the most out of each day. Whether it's a Monday or a Friday, every day offers new opportunities and experiences.</p>
-    <p>As the clock ticks, remember to take a moment to reflect on the passing time and appreciate the journey it brings. Time is a precious resource, so let's make the most of it!</p>
+    <p id="countdown">Time until next day: <span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span></p>
+    <p>This simple webpage displays today's date, the day of the week, and a countdown to the next day. The countdown updates in real time.</p>
+    <p>Understanding the passage of time helps us appreciate the present and plan for the future. Make the most of each day!</p>
   </div>
 
   <script>
@@ -66,24 +66,21 @@
       const timeUntilMidnight = 24 * 60 * 60 * 1000 - (now.getTime() - startOfDay.getTime());
       const hoursUntilMidnight = Math.floor(timeUntilMidnight / (60 * 60 * 1000));
       const minutesUntilMidnight = Math.floor((timeUntilMidnight % (60 * 60 * 1000)) / (60 * 1000));
+      const secondsUntilMidnight = Math.floor((timeUntilMidnight % (60 * 1000)) / 1000);
       document.getElementById('hour').innerText = hoursUntilMidnight.toString().padStart(2, '0');
       document.getElementById('minute').innerText = minutesUntilMidnight.toString().padStart(2, '0');
+      document.getElementById('second').innerText = secondsUntilMidnight.toString().padStart(2, '0');
     }
 
-    function updateAtMidnight() {
-      const now = new Date();
-      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-      const timeUntilMidnight = 24 * 60 * 60 * 1000 - (now.getTime() - startOfDay.getTime());
-      setTimeout(() => {
-        updateDate();
+    function updateEverySecond() {
+      setInterval(() => {
         updateCountdown();
-        updateAtMidnight();
-      }, timeUntilMidnight);
+      }, 1000);
     }
 
     updateDate();
     updateCountdown();
-    updateAtMidnight();
+    updateEverySecond();
   </script>
 </body>
 </html>
