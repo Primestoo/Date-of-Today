@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Date 365</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5; /* Light gray background */
+    }
+    .container {
+      padding: 20px;
+      background-color: #fff; /* White background */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+      max-width: 400px; /* Limit width for better readability */
+      margin: 20px auto; /* Center the container */
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333; /* Dark text color */
+    }
+    #numeric-date {
+      font-size: 24px;
+      color: #666; /* Medium gray text color */
+    }
+    #written-date {
+      font-size: 20px;
+      color: #666; /* Medium gray text color */
+      margin-bottom: 10px;
+    }
+    #day-of-week {
+      font-size: 18px;
+      color: #666; /* Medium gray text color */
+      margin-bottom: 10px;
+    }
+    #countdown {
+      font-size: 18px;
+      color: #999; /* Light gray text color */
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Today's Date 365</h1>
+    <p id="numeric-date"></p>
+    <p id="written-date"></p>
+    <p id="day-of-week"></p>
+    <p id="countdown">Time until next day: <span id="hour">00</span> hours <span id="minute">00</span> minutes</p>
+  </div>
+
+  <script>
+    function updateDate() {
+      const currentDate = new Date();
+      const numericOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      const writtenOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+      const numericDate = currentDate.toLocaleDateString('en-US', numericOptions);
+      const writtenDate = currentDate.toLocaleDateString('en-US', writtenOptions);
+      const dayOfWeek = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+      document.getElementById('numeric-date').innerText = numericDate;
+      document.getElementById('written-date').innerText = writtenDate;
+      document.getElementById('day-of-week').innerText = `Today is ${dayOfWeek}`;
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+      const timeUntilMidnight = 24 * 60 * 60 * 1000 - (now.getTime() - startOfDay.getTime());
+      const hoursUntilMidnight = Math.floor(timeUntilMidnight / (60 * 60 * 1000));
+      const minutesUntilMidnight = Math.floor((timeUntilMidnight % (60 * 60 * 1000)) / (60 * 1000));
+      document.getElementById('hour').innerText = hoursUntilMidnight.toString().padStart(2, '0');
+      document.getElementById('minute').innerText = minutesUntilMidnight.toString().padStart(2, '0');
+    }
+
+    function updateAtMidnight() {
+      const now = new Date();
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+      const timeUntilMidnight = 24 * 60 * 60 * 1000 - (now.getTime() - startOfDay.getTime());
+      setTimeout(() => {
+        updateDate();
+        updateCountdown();
+        updateAtMidnight();
+      }, timeUntilMidnight);
+    }
+
+    updateDate();
+    updateCountdown();
+    updateAtMidnight();
+  </script>
+</body>
+</html>
