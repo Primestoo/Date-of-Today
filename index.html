@@ -96,6 +96,10 @@
       background-color: #222;
       color: #fff;
     }
+    .dark-mode .container {
+      background-color: #333;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -172,7 +176,7 @@
     darkModeBtn.addEventListener('click', toggleDarkMode);
 
     const lightModeBtn = document.getElementById('light-mode-btn');
-    lightModeBtn.addEventListener('click', toggleLightMode);
+    lightModeBtn.addEventListener('click', toggleLightMode();
 
     updateDate();
     updateCountdown();
