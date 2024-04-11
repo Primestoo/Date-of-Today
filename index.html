@@ -3,48 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Today's Date 365</title>
+  <title>Today's Date</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
-      background-color: #000; /* Black background */
-      color: #fff; /* White text color */
     }
     .container {
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-      border-radius: 10px; /* Rounded corners */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
-      max-width: 400px; /* Limit width for better readability */
-      margin: 100px auto; /* Center the container vertically */
+      width: 80%;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
     }
     h1 {
       font-size: 36px;
       margin-bottom: 20px;
+      color: #333;
     }
     p {
       font-size: 18px;
       margin-bottom: 10px;
-      text-align: left;
+      color: #555;
     }
     #countdown {
       font-size: 24px;
-      color: #666; /* Medium gray text color */
+      color: #666;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Today's Date 365</h1>
+    <h1>Today's Date</h1>
     <p id="numeric-date"></p>
     <p id="written-date"></p>
     <p id="day-of-week"></p>
     <p id="countdown">Time until next day: <span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span></p>
-    <p>This simple webpage displays today's date, the day of the week, and a countdown to the next day. The countdown updates in real time.</p>
-    <p>Understanding the passage of time helps us appreciate the present and plan for the future. Make the most of each day!</p>
+    <p>This webpage displays today's date, the day of the week, and a countdown to the next day.</p>
+    <p>Make the most of each day!</p>
   </div>
 
   <script>
