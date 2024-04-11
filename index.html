@@ -7,9 +7,9 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .container {
       width: 80%;
@@ -19,6 +19,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding: 30px;
       text-align: center;
+      transition: background-color 0.3s ease;
     }
     h1 {
       font-size: 36px;
@@ -35,9 +36,78 @@
       color: #666;
       margin-top: 20px;
     }
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    .menu-btn span {
+      display: block;
+      width: 30px;
+      height: 4px;
+      background-color: #333;
+      margin-bottom: 6px;
+      transition: background-color 0.3s ease;
+    }
+    .menu {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      display: none;
+      z-index: 9998;
+    }
+    .menu-btn:focus + .menu, .menu:hover {
+      display: block;
+    }
+    .menu-btn:focus span {
+      background-color: transparent;
+    }
+    .menu-btn:focus span:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+    .menu-btn:focus span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-btn:focus span:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+    .mode-btn {
+      display: block;
+      margin-bottom: 10px;
+      padding: 8px 16px;
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .mode-btn:hover {
+      background-color: #ddd;
+    }
+    .dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
+  <button class="menu-btn" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="menu">
+    <button class="mode-btn" id="light-mode-btn">Light Mode</button>
+    <button class="mode-btn" id="dark-mode-btn">Dark Mode</button>
+  </div>
   <div class="container">
     <h1>Today's Date</h1>
     <p id="numeric-date"></p>
@@ -78,6 +148,31 @@
         updateCountdown();
       }, 1000);
     }
+
+    function toggleDarkMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('colorMode', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    }
+
+    function toggleLightMode() {
+      const body = document.body;
+      body.classList.remove('dark-mode');
+      localStorage.setItem('colorMode', 'light');
+    }
+
+    window.onload = function() {
+      const colorMode = localStorage.getItem('colorMode');
+      if (colorMode === 'dark') {
+        toggleDarkMode();
+      }
+    }
+
+    const darkModeBtn = document.getElementById('dark-mode-btn');
+    darkModeBtn.addEventListener('click', toggleDarkMode);
+
+    const lightModeBtn = document.getElementById('light-mode-btn');
+    lightModeBtn.addEventListener('click', toggleLightMode);
 
     updateDate();
     updateCountdown();
